@@ -1,16 +1,18 @@
 # python [path]get-pip.py (https://www.liquidweb.com/kb/install-pip-windows/)
 # pip install pandas
-# conda install geopandas with Anaconda https://geopandas.readthedocs.io/en/latest/install.html#installing-with-anaconda-conda
+# conda install geopandas with Microconda https://geopandas.readthedocs.io/en/latest/install.html#installing-with-anaconda-conda #conda install -c conda-forge geopandas
 # pip install sparqlwrapper
 # https://rdflib.github.io/sparqlwrapper/
 # pip install geojson
+# pip install nlgeojson https://github.com/murphy214/nlgeojson
 # pip install shapely
 
 import pandas as pd
-#import geopandas
+#import geopandas as gpd
 from SPARQLWrapper import SPARQLWrapper, JSON
 import geojson
 import tempfile
+#import nlgeojson as nl
 #from shapely import wkt
 
 endpoint_url = "https://query.wikidata.org/sparql"
