@@ -62,7 +62,7 @@ for result in results["results"]["bindings"]:
     #geoms.append(result["geo"]["value"].replace("Point", "POINT"))
     #geomsgj.append(wkt.loads(result["geo"]["value"].replace("Point", "POINT")))
     #items.append(result["item"]["value"])
-    feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+    feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"], 'item': result["item"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
     features.append(feature)
 
 #print(labels)
@@ -87,3 +87,6 @@ for result in results["results"]["bindings"]:
 geojson = {'type': 'FeatureCollection', 'features': features }
 
 print(json.dumps(geojson, sort_keys=True, indent=4))
+
+with open('D:/tmp/data.geojson', 'w') as f:
+    json.dump(geojson, f)
