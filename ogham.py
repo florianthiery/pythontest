@@ -6,12 +6,14 @@
 # pip install geojson
 # pip install nlgeojson https://github.com/murphy214/nlgeojson
 # pip install shapely
+# pip install geomet  https://github.com/geomet/geomet
 
 import pandas as pd
 #import geopandas as gpd
 from SPARQLWrapper import SPARQLWrapper, JSON
 import geojson
 import tempfile
+from geomet import wkt
 #import nlgeojson as nl
 #from shapely import wkt
 
@@ -46,6 +48,7 @@ results = get_results(endpoint_url, query)
 labels = []
 geoms = []
 items = []
+geomsgj = []
 
 for result in results["results"]["bindings"]:
     #print(result)
@@ -53,7 +56,8 @@ for result in results["results"]["bindings"]:
     #print(result["geo"]["value"])
     #print(result["item"]["value"])
     labels.append(result["label"]["value"])
-    geoms.append(result["geo"]["value"])
+    geoms.append(result["geo"]["value"].replace("Point", "POINT"))
+    geomsgj.append(wkt.loads(result["geo"]["value"].replace("Point", "POINT")))
     items.append(result["item"]["value"])
 
 #print(labels)
@@ -64,7 +68,8 @@ for result in results["results"]["bindings"]:
 # Define a dictionary containing employee data
 data = {'labels':labels,
         'geoms':geoms,
-        'items':items}
+        'items':items,
+        'geomsgj':geomsgj}
 
 # Convert the dictionary into DataFrame
 df = pd.DataFrame(data)
