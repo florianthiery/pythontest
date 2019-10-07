@@ -50,6 +50,8 @@ geoms = []
 items = []
 geomsgj = []
 
+features = []
+
 for result in results["results"]["bindings"]:
     #print(result)
     #print(result["label"]["value"])
@@ -59,6 +61,9 @@ for result in results["results"]["bindings"]:
     geoms.append(result["geo"]["value"].replace("Point", "POINT"))
     geomsgj.append(wkt.loads(result["geo"]["value"].replace("Point", "POINT")))
     items.append(result["item"]["value"])
+    feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
+    print(feature)
+    features.append(feature)
 
 #print(labels)
 
@@ -79,4 +84,6 @@ print(df[['labels', 'items', 'geoms']])
 
 # geojson stuff
 
-# https://geopandas.readthedocs.io/en/latest/gallery/create_geopandas_from_pandas.html
+geojson = {'type': 'FeatureCollection', 'features': features }
+
+print(geojson)
