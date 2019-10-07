@@ -14,6 +14,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 import geojson
 import tempfile
 from geomet import wkt
+import json
 #import nlgeojson as nl
 #from shapely import wkt
 
@@ -57,12 +58,11 @@ for result in results["results"]["bindings"]:
     #print(result["label"]["value"])
     #print(result["geo"]["value"])
     #print(result["item"]["value"])
-    labels.append(result["label"]["value"])
-    geoms.append(result["geo"]["value"].replace("Point", "POINT"))
-    geomsgj.append(wkt.loads(result["geo"]["value"].replace("Point", "POINT")))
-    items.append(result["item"]["value"])
+    #labels.append(result["label"]["value"])
+    #geoms.append(result["geo"]["value"].replace("Point", "POINT"))
+    #geomsgj.append(wkt.loads(result["geo"]["value"].replace("Point", "POINT")))
+    #items.append(result["item"]["value"])
     feature = { 'type': 'Feature', 'properties': { 'label': result["label"]["value"] }, 'geometry': wkt.loads(result["geo"]["value"].replace("Point", "POINT")) }
-    print(feature)
     features.append(feature)
 
 #print(labels)
@@ -71,19 +71,19 @@ for result in results["results"]["bindings"]:
 # https://www.geeksforgeeks.org/python-pandas-dataframe/
 
 # Define a dictionary containing employee data
-data = {'labels':labels,
-        'geoms':geoms,
-        'items':items,
-        'geomsgj':geomsgj}
+#data = {'labels':labels,
+#        'geoms':geoms,
+#        'items':items,
+#        'geomsgj':geomsgj}
 
 # Convert the dictionary into DataFrame
-df = pd.DataFrame(data)
+#df = pd.DataFrame(data)
 
 # select two columns
-print(df[['labels', 'items', 'geoms']])
+#print(df[['labels', 'items', 'geoms']])
 
 # geojson stuff
 
 geojson = {'type': 'FeatureCollection', 'features': features }
 
-print(geojson)
+print(json.dumps(geojson, sort_keys=True, indent=4))
