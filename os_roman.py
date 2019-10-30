@@ -2,6 +2,7 @@
 # pip install sparqlwrapper
 # pip install geojson
 # pip install geomet  https://github.com/geomet/geomet
+# pip install convertbng https://pypi.org/project/convertbng/
 
 from SPARQLWrapper import SPARQLWrapper, JSON
 import geojson
